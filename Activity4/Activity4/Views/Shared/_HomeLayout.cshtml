@@ -1,0 +1,13 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    @RenderSection("head", required: false)
+</head>
+<body>
+    @RenderPage("_Header.cshtml")
+    @RenderBody()
+    <hr />
+    @RenderPage("_Footer.cshtml")
+</body>
+</html>

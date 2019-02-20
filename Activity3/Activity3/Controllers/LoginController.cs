@@ -18,8 +18,13 @@ namespace Activity3.Controllers
         [HttpPost]
         public ActionResult Login(UserModel model)
         {
+
+            //Validate form POST
+            if (!ModelState.IsValid)
+                return View("Login");
             try
             {
+
                 SecurityService service = new SecurityService();
                 bool result = service.Authenticate(model);
                 if (result)
@@ -38,4 +43,5 @@ namespace Activity3.Controllers
         }
 
     }
+    
 }

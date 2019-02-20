@@ -1,0 +1,63 @@
+﻿@model  List<Activity4.Models.ButtonModel>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Test</title>
+    <style>
+        .CustomerLabel {
+            font-size: 18px;
+            font-family: Arial;
+            font-weight: bold;
+            color: blue;
+            text-align: left;
+            display: block
+        }
+    </style>
+</head>
+<body>
+    
+    <div>
+        @Html.Label("Welcome to Razor", new { style = "font-size: 24px; font-family: Arial; font-weight: bold; color: black;text-align: center; display: block" })<br />
+        @Html.Label("Playing with Buttons", new { @class = "CustomerLabel" })
+    </div>
+
+    
+    @("Number of buttons is " + Model.Count)<br />
+    @using (Html.BeginForm("OnButtonClick", "Button"))
+    {
+        <button type="submit" name="mine" value="1">
+            @if (Model[0].State)
+            {
+                <img src="~/Images/buttn1.png" />
+            }
+            else
+            {
+                <img src="~/Images/buttn2.png" />
+            }
+        </button><br />
+        <button type="submit" name="mine" value="2">
+            @if (Model[1].State)
+            {
+                <img src="~/Images/buttn1.png" />
+            }
+            else
+            {
+                <img src="~/Images/buttn2.png" />
+            }
+        </button><br />
+    }
+
+    <br />
+    <div>
+        @Html.ActionLink("Home Page", "../Test")
+    </div>
+</body>
+</html>
+
