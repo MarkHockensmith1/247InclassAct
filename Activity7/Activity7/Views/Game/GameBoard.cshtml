@@ -1,0 +1,61 @@
+﻿<!-- Razor Page variables -->
+@{
+    ViewBag.Title = "Game Board";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Game Board Helper Scripts -->
+<script>
+    // This JavaScript function is called after the Game Piece AJAX Form has been completed
+    function gamePieceAjaxCallback()
+    {
+        // This is an example where on successful completion of the Partial View update you can call your own Controller Method
+        // The jQuery code below makes an AJAX POST to the Customer Controller to its GetMoreInfo() passing it a Customer ID
+        // Uncomment this jQuery call to display a JavaScript alert() with some data returned from the Controller Method
+        $.post('@Url.Action("GetMoreInfo", "Game")', { customer: 2 }, function (data) { updateGamePieces(data); });
+    }
+
+    // This JavaScript function will draw a Game Piece
+    function drawGamePiece(id)
+    {
+        // Show or Hide the Game Piece depending on its Value (0 will show a Button and non 0 will show its Value)
+        var value = $('#game'.concat(id).concat(' #gpValue')).val();
+        var button = $('#game'.concat(id).concat(' #button'));
+        var label = $('#game'.concat(id).concat(' #label'));
+        if (value == 0)
+        {
+            // Value of 0 will display a Button
+            button.show();
+            label.hide();
+        }
+        else
+        {
+            // Value of non 0 will display a Label with a Value
+            button.hide();
+            label.show();
+        }
+    }
+
+    // This JavaSript function simulates updating the Game Pieces where the data argument is an Array of 9 GamePieceModel's
+    function updateGamePieces(data)
+    {
+        // Parse the JSON, loop over all the Game Pieces, and draw the Game Piece
+        var jsonData = JSON.parse(data);
+        for (var i = 0; i < jsonData.length; i++)
+        {
+            // Get Game Piece, set each Game Piece Value, and draw the Game Piece
+            var piece = jsonData[i];
+
+            // Set value of Game Piece
+            var divId = '#game'.concat(piece.ID);
+            var valueId = '#game'.concat(piece.ID).concat(' #gpValue');
+            $(valueId).val(piece.Value);
+
+            // Refresh the Game Piece
+            drawGamePiece(piece.ID);
+        }
+    }
+</script>
+
+<!-- Demo Game Board -->
+@Html.Partial("_GameBoard")

@@ -1,0 +1,70 @@
+﻿@model ICollection<int>
+@{
+    // The above Model is extremely simple in that it is just a List of ints.
+    // You could create a Minesweeper Game Piece Model Object for each Game Piece that might have the following attributes:
+    //      Location index into your Grid on the Game Board
+    //      Whether or not been visited (a simple boolean value)
+    //      Whether or not it has a mine (a simple boolean value)
+    //      How many neighbors have mines
+    // You could then create your Game Board by creating a list of Minesweeper Game Piece Model Objects
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Play</title>
+</head>
+<body>
+    <!-- <form action="/Play/MyInts" method="POST"> -->
+    @using (Html.BeginForm("MyInts", "Play", FormMethod.Post, new { id = "myform1" }))
+    {
+        // You can iterate over a List of your Mindsweep Game Piece Model objects to create a Table for all your Game Pieces.
+        // You can dynamically pick the appropriate HTML Form Widgets Buttons or just Images in your View based on the state of your Mindsweeper Model Object.
+        // You can also use Hidden Form Elements to hold your Mindsweeper Game Piece State between Form Posts / Page Updates.
+        var test = true;
+        if (test)
+        {
+            // If you want to bind to a text box to a model then use Html.TextBoxFor() or Html.EditorFor()
+            <input type="text" name="ints" value="1" /><br />
+        }
+        else
+        {
+            <label>I am a label and not a text box</label><br />
+        }
+        <input type="text" name="ints" value="2" /><br />
+        <input type="text" name="ints" value="3" /><br />
+        <input type="text" name="ints" value="4" /><br />
+        <input type="submit" />
+    }
+    <!-- </form> -->
+    <br />
+    <br />
+    <br />
+
+    <!-- <form action="/Play/MyButton" method="POST"> -->
+    @using (Html.BeginForm("MyButton", "Play", FormMethod.Post, new { id = "myform2" }))
+    {
+        // You can iterate over a List of your Mindsweep Game Piece Model objects to create a Table for all your Game Pieces.
+        // A Game Piece could be drawn as either Button (of type submit) or a Label
+        // Notice you can have multiple Submit buttons all with the same name attribute. The value can be retrieved as an argument to the Post Controller method.
+        <table>
+            <tr>
+                <td><button type="submit" name="mine" value="Mine0">*</button></td>
+                <td><label>1</label></td>
+            </tr>
+            <tr>
+                <td><label>2</label></td>
+                <td><button type="submit" name="mine" value="Mine3">*</button></td>
+            </tr>
+            <tr>
+                <td><button type="submit" name="mine" value="Mine4">*</button></td>
+                <td><label>5</label></td>
+            </tr>
+        </table>
+    }
+    <!-- </form> -->
+</body>
+</html>

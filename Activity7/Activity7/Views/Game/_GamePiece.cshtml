@@ -1,0 +1,28 @@
+﻿@model int
+<!-- Razor Page variables -->
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        HttpMethod = "POST",
+        OnSuccess = "gamePieceAjaxCallback"
+    };
+}
+
+<!-- Dynamically Build the Game Piece Div Tag and Game Piece Form -->
+@Html.Raw("<div id=\"game")@Model.ToString()@Html.Raw("\">")
+<!-- Each Game Piece is an AJAX enabled Form that has a Button or Label (only one is shown at a time depending on Value of Game Piece)-->
+@using (Ajax.BeginForm("OnSelectGamePiece", "Game", ajaxOptions, new { id = "myform" + @Model.ToString() }))
+{
+    @Html.AntiForgeryToken();
+    @Html.Hidden("gpValue", @Model.ToString())
+    <button id="button" type="button" onclick="@Html.Raw("$('#myform")@Model.ToString()@Html.Raw("\').trigger('submit');")">
+        <img width="30px" height="30px" src="~/Images/button.jpg" />
+    </button>
+    <b>@Html.Label(@Model.ToString(), new { id = "label" })</b>
+}
+@Html.Raw("</div>")
+
+<!-- Initially draw this Game Piece -->
+<script>
+    drawGamePiece(@Model);
+</script>
